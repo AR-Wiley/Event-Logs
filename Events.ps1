@@ -28,19 +28,16 @@ function GetSystemInfo {
 
     }
 
+    $warning_events = Get-WinEvent -FilterHashtable $filterhashtable_warning | Where-Object {$_.LevelDisplayName -eq "Warning" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
 
+    $error_events =  Get-WinEvent -FilterHashtable $filterhashtable_error | Where-Object {$_.LevelDisplayName -eq "Error" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
 
-$warning_events = Get-WinEvent -FilterHashtable $filterhashtable_warning | Where-Object {$_.LevelDisplayName -eq "Warning" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
-
-$error_events =  Get-WinEvent -FilterHashtable $filterhashtable_error | Where-Object {$_.LevelDisplayName -eq "Error" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
-
-Write-Output "System Warning Events over the last Day: " 
-$warning_events | Format-Table -AutoSize
-Write-Output "System Error Events over the last seven Days: " 
-$error_events | Format-Table -AutoSize 
+    Write-Output "System Warning Events over the last Day: " 
+    $warning_events | Format-Table -AutoSize
+    Write-Output "System Error Events over the last seven Days: " 
+    $error_events | Format-Table -AutoSize 
 
 }
-
 
 function GetApplicationInfo {
 
@@ -68,22 +65,18 @@ function GetApplicationInfo {
     Logname = $logname_error
     StartTime = $first_error
     EndTime = $last_error
-
     }
 
+    $warning_events = Get-WinEvent -FilterHashtable $filterhashtable_warning | Where-Object {$_.LevelDisplayName -eq "Warning" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
 
+    $error_events =  Get-WinEvent -FilterHashtable $filterhashtable_error | Where-Object {$_.LevelDisplayName -eq "Error" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
 
-$warning_events = Get-WinEvent -FilterHashtable $filterhashtable_warning | Where-Object {$_.LevelDisplayName -eq "Warning" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
-
-$error_events =  Get-WinEvent -FilterHashtable $filterhashtable_error | Where-Object {$_.LevelDisplayName -eq "Error" } | Select-Object TimeCreated,Id,LevelDisplayName,Level,Message 
-
-Write-Output "Application Warning Events over the last Day: " 
-$warning_events | Format-Table -AutoSize
-Write-Output "Application Error Events over the last seven Days: " 
-$error_events | Format-Table -AutoSize 
+    Write-Output "Application Warning Events over the last Day: " 
+    $warning_events | Format-Table -AutoSize
+    Write-Output "Application Error Events over the last seven Days: " 
+    $error_events | Format-Table -AutoSize 
 
 }
-
 
 GetSystemInfo
 GetApplicationInfo
